@@ -1,10 +1,10 @@
 ## **Challenge: Dynamic Orchestrator**
 
-### **1\. El Escenario**
+### **1. El Escenario**
 
 El usuario debe construir un **Dashboard de Tareas Inteligente** que renderice diferentes tipos de tarjetas (tareas de texto, tareas con checklist, y alertas de sistema) basándose en una respuesta JSON. No se sabe de antemano cuántas ni de qué tipo serán las tarjetas.
 
-### **2\. Flujo Arquitectural**
+### **2. Flujo Arquitectural**
 
 Para evaluar el nivel intermedio/difícil, el flujo debe seguir estrictamente este esquema:
 
@@ -14,7 +14,7 @@ Para evaluar el nivel intermedio/difícil, el flujo debe seguir estrictamente es
 
 ---
 
-### **3\. Requerimientos Técnicos**
+### **3. Requerimientos Técnicos**
 
 #### **A. Centralización (The DM Pattern)**
 
@@ -37,7 +37,7 @@ El componente principal `task-list.js` no debe tener una lista de componentes es
 
 ---
 
-### **4\. Estructura de Source Tree**
+### **4. Estructura de Source Tree**
 
 Se evaluará que el proyecto respete la organización jerárquica:
 
@@ -59,7 +59,7 @@ src/
     ├── \_variables.scss  
     └── main.scss
 
-### **5\. Puntos Extra**
+### **5. Puntos Extra**
 
 1. **Optimización:** Que el `Data Manager` no emita un evento de actualización si los datos recibidos son idénticos a los actuales (Deep Comparison).  
 2. **Manejo de Errores:** Un componente `error-boundary` que capture fallos en la renderización dinámica de un template específico sin romper toda la página.

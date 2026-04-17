@@ -1,13 +1,17 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 
 import { HasAnalytics } from '../shared/analytics-mixin';
 
 import '../task-card/task-card';
 
+import styles from './task-list.scss?inline';
+
 export class TaskList extends HasAnalytics(LitElement) {
   static properties = {
     tasks: { type: Array },
   };
+
+  static styles = css`${unsafeCSS(styles)}`;
 
   constructor() {
     super();
@@ -27,6 +31,18 @@ export class TaskList extends HasAnalytics(LitElement) {
     );
   }
 
+  _emitDelete(id) {
+    this.logInteraction('delete-task', { id });
+    window.dispatchEvent(new CustomEvent('delete-task', { detail: { id } }));
+  }
+
+  _emitUpdate(id, patch) {
+    this.logInteraction('update-task', { id, patch });
+    window.dispatchEvent(
+      new CustomEvent('update-task', { detail: { id, patch } }),
+    );
+  }
+
   _renderTemplate(task) {
     switch (task.type) {
       case 'text':
@@ -35,6 +51,20 @@ export class TaskList extends HasAnalytics(LitElement) {
             <task-card .task=${task}>
               <h3>${task.content.title}</h3>
               <p>${task.content.description}</p>
+              <div class="actions">
+                <button
+                  class="danger"
+                  @click=${() => this._emitDelete(task.id)}
+                >
+                  Eliminar
+                </button>
+                <button
+                  @click=${() =>
+                    this._emitUpdate(task.id, { priority: 'high' })}
+                >
+                  Prioridad alta
+                </button>
+              </div>
             </task-card>
           </li>
         `;
@@ -60,6 +90,20 @@ export class TaskList extends HasAnalytics(LitElement) {
                   `,
                 )}
               </div>
+              <div class="actions">
+                <button
+                  class="danger"
+                  @click=${() => this._emitDelete(task.id)}
+                >
+                  Eliminar
+                </button>
+                <button
+                  @click=${() =>
+                    this._emitUpdate(task.id, { priority: 'high' })}
+                >
+                  Prioridad alta
+                </button>
+              </div>
             </task-card>
           </li>
         `;
@@ -70,6 +114,20 @@ export class TaskList extends HasAnalytics(LitElement) {
               <h3>${task.content.title}</h3>
               <p>${task.content.message}</p>
               <small>${task.content.errorCode}</small>
+              <div class="actions">
+                <button
+                  class="danger"
+                  @click=${() => this._emitDelete(task.id)}
+                >
+                  Eliminar
+                </button>
+                <button
+                  @click=${() =>
+                    this._emitUpdate(task.id, { priority: 'high' })}
+                >
+                  Prioridad alta
+                </button>
+              </div>
             </task-card>
           </li>
         `;

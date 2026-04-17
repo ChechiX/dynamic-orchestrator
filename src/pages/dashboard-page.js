@@ -1,15 +1,13 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, unsafeCSS } from 'lit';
 
 import '../custom-elements/task-list/task-list';
 
+import styles from './dashboard-page.scss?inline';
+
 export class DashboardPage extends LitElement {
-  static styles = [
-    css`
-      :host {
-        display: block;
-      }
-    `,
-  ];
+  static styles = css`
+    ${unsafeCSS(styles)}
+  `;
 
   static properties = {
     tasks: { state: true },
